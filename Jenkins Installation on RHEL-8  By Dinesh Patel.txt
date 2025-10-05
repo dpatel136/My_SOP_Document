@@ -1,0 +1,77 @@
+                         *****Jenkins Installation on RHEL-8 Created By Dinesh Patel*****
+
+Step 1: ping google and redhat on VM
+        #ping www.google.com
+        #ping www.redhat.com
+
+Step 2: Take Snapshot
+        Name:-Before_install_jenkins_server
+
+Step 3:- Set Hostname
+         #hostnamectl set-hostname jenkins.example.com
+
+Step 4:- Mount CD/DVD to /mnt   
+         #mount /dev/cdrom /mnt
+         #yum clean all
+         #yum repolist all
+
+Note:-to enabled file based repo
+
+Step 5:- Install Java (Jenkins requires Java)
+        #yum install java-17-openjdk -y
+         Verify Java:
+        #java -version
+
+Step 6:- Enable Jenkins Repository
+        #wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        #rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+Step 7: Install Jenkins
+        #yum install jenkins -y
+
+Step 8: Start and Enable Jenkins
+        #systemctl start jenkins
+        #systemctl enable --now jenkins
+        #systemctl status jenkins
+
+Step 9: Adjust the Firewall
+        #firewall-cmd --permanent --add-port=8080/tcp
+        #firewall-cmd --reload
+        #firewall-cmd --list-all
+
+Step 10: Access Jenkins Web UI
+        http://<your_server_ip>:8080
+
+Step 11: Get Initial Admin Password 
+                     
+        #cat /var/lib/jenkins/secrets/initialAdminPassword
+        
+        
+        Use this password to unlock Jenkins web interface.
+
+Step 12: Complete Jenkins Setup on Web UI
+
+            Install suggested plugins
+
+            Create admin user
+
+            Start using Jenkins
+			
+			plugins install:-	GitHub Integration,maven integration,Deploy to container,Publish Over SSH
+			manage jenkins :-inside tools
+			Add JDK
+			Add git
+			Add maven
+			apply and save
+			and create a new job
+			branch:-main
+			Goals and options:-clean install
+			apply and save and build a job
+			
+
+
+
+GitHub Token:-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
+_________________________________________________________________________________________________________________
+
+

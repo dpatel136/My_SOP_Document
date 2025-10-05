@@ -1,0 +1,20 @@
+**Docker Volume:-
+#docker ps -a
+#docker volume create v1
+#docker volume list
+#cd /var/lib/docker/
+#ls
+#cd v1
+#cd _data/
+#ls
+#vim index.html
+**Welocme to Docker**
+:wq!
+#cat index.html
+#cd
+#docker container list
+#docker run -it -d --name websrv -v v1:/var/www/html -p 8080:80 httpd
+
+open firefox 
+http://serverip:8080
+___________________________________________________

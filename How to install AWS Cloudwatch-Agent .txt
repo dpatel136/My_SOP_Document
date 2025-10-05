@@ -1,0 +1,49 @@
+*****Steps to install cloudwatch-agent inside AWS EC2****
+How to create iam role for below link
+Prerequiest for working with cloudwatch
+How to create iam role for below link
+
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/prerequisites.html
+
+Now attach new role to the ec2 instance that you wants to monitor
+
+Now go to EC2 select instance then action choose security option and then attach roles
+
+
+Steps 1:-to search cloudwatch-agent pkg
+    #yum search cloudwatch
+    #yum info amazon-cloudwatch-agent.x86_64
+	
+Steps 2: to install cloudwatch-agent pkgs
+    #yum install -y amazon-cloudwatch-agent.x86_64
+	
+Steps 3:- configure cloudwatch-agent {use amazon document}
+  
+using wizards.....{predefined templates and settings}
+
+
+Steps 4:- start the cloudwatch wizard to configure
+    #/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+	
+after the above command copy the config path
+    /opt/aws/amazon-cloudwatch-agent/bin/config.json
+	
+Step 5:- start the cloudwatch-agent
+    #/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+Step 6:- to check status of cloudwatch-agent service
+    #systemctl status amazon-cloudwatch-agent.service
+	
+Step 7:- to install log on cloudwatch-agent
+    #yum search rsyslog
+	#yum info rsyslog.x86_64
+	#yum install -y  rsyslog.x86_64
+	#cd /var/log
+	#tail -f  messages
+	
+
+
+
+
+	
+	

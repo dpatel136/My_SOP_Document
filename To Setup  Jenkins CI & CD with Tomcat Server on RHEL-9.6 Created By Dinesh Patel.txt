@@ -1,0 +1,305 @@
+                         *****To Setup  Jenkins CI & CD with Tomcat Server on RHEL-9.6 Created By Dinesh Patel*****
+
+Step 1: ping google and redhat on VM
+        #ping www.google.com
+        #ping www.redhat.com
+
+Step 2: Take Snapshot
+        Name:-Before_install_jenkins_server
+
+Step 3:- Set Hostname
+         #hostnamectl set-hostname jenkins.example.com
+
+Step 4:- Mount CD/DVD to /mnt   
+         #mount /dev/cdrom /mnt
+         #yum clean all
+         #yum repolist all
+
+Note:-to enabled file based repo
+
+Step 5:- Install Java (Jenkins requires Java)
+        #yum install java-21-openjdk -y
+         Verify Java:-
+        #java -version
+
+Step 6:- Enable Jenkins Repository
+        #wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        #rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+Step 7: Install Jenkins
+        #yum install jenkins -y
+
+Step 8: Start and Enable Jenkins
+        #systemctl start jenkins
+        #systemctl enable --now jenkins
+        #systemctl status jenkins
+
+Step 9: Adjust the Firewall
+        #firewall-cmd --permanent --add-port=8080/tcp
+        #firewall-cmd --reload
+        #firewall-cmd --list-all
+
+Step 10: Access Jenkins Web UI
+        http://<your_server_ip>:8080
+
+Step 11: Get Initial Admin Password 
+                     
+        #cat /var/lib/jenkins/secrets/initialAdminPassword
+        
+        
+        Use this password to unlock Jenkins web interface.
+
+Step 12: Complete Jenkins Setup on Web UI
+
+            Install suggested plugins
+
+            Create admin user
+
+            Start using Jenkins
+			
+			plugins install:-	GitHub Integration,maven integration,Deploy to container,Publish Over SSH
+			
+			
+Step 13:-Install maven on jenkins server
+go to browser and type apache maven download
+and select tar.gz file {https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz}
+         #cd /opt
+		 #wget https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz
+		 #ls
+		 #tar -xvzf apache-maven-3.9.11-bin.tar.gz
+		 #ls
+		 #mv apache-maven-3.9.11 maven
+		 #ls
+		 
+Step 14:-Now to find java path
+        #find find /usr/lib/jvm/java-21* | head -n 3
+		/usr/lib/jvm/java-21-openjdk-21.0.8.0.9-1.el9.x86_64
+		
+Step 15:- Now to open .bashrc and .bash_profile file 
+        #vim .bash_profile
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.8.0.9-1.el9.x86_64
+M2_HOME=/opt/maven
+M2=/opt/maven/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2:$M2_HOME
+export PATH
+
+:wq!
+
+       #vim .bashrc
+JAVA_HOME=/usr/lib/jvm/java-21-openjdk-21.0.8.0.9-1.el9.x86_64
+M2_HOME=/opt/maven
+M2=/opt/maven/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2:$M2_HOME
+export PATH
+
+:wq!	
+      #source .bashrc
+	  #source .bash_profile
+	  #echo $JAVA_HOME
+	  #echo $M2_HOME
+	  #echo $M2
+	  #java -version
+	  #mvn -version
+
+Step 16:- {to create maven directory structure}
+      #mvn archetype:generate | grep maven-archetype-webapp  {choose sample maven webapp project which no is 2267}
+	  #mvn archetype:generate
+	  Choose a number: 8: 8
+Define value for property 'groupId': in.radical.webapp
+Define value for property 'artifactId': FormFillApp
+      #tree FormFillApp/
+	  #cd FormFillApp
+	  #vim src/main/webapp/index.jsp
+	  <form action="action_page.php">
+  <div class="container">
+    <h1>Radical Student Registration!</h1>
+    <p>Please fill in this form!</p>
+    <hr>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+    <label for="psw-repeat"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+    <hr>
+
+    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <button type="submit" class="registerbtn">Register</button>
+  </div>
+
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div>
+</form>
+
+:wq!
+
+	  
+Step 17:- Now to install git on jenkins server
+      #yum install git -y
+	  #git init
+	  #git config --global user.name "Sai"
+	  #git config --global user.email "sai3cs@gmail.com"
+	  #git config --list
+	  #git add .
+	  #git status
+	  #git commit  -m "myfirstcode"
+	  
+Now we create central repo with same name on github account
+      #git remote add origin https://github.com/dpatel136/FormFillApp.git
+	  #git branch -M main
+	  #git push -u origin main
+         
+Step 18:- Now go back to jenkins dashboard
+go to manage jenkins :-inside tools
+Add JDK
+Add git
+Add maven
+apply and save
+
+Step 19:- to create 1 jenkins job
+job name:-My_First_Maven_Project
+            git:- to paste github account FormFillApp repo url
+			branch:-main
+			Goals and options:-clean install
+			apply and save and build a job
+			
+********login to tomcat server and perform the below command***********
+Step 20: ping google and redhat on VM
+        #ping www.google.com
+        #ping www.redhat.com
+
+Step 21: Take Snapshot
+        Name:-Before_install_tomcat_server
+
+Step 23:- Set Hostname
+         #hostnamectl set-hostname tomcat.example.com
+
+Step 24:- Mount CD/DVD to /mnt   
+         #mount /dev/cdrom /mnt
+         #yum clean all
+         #yum repolist all
+
+Note:-to enabled file based repo
+
+Step 25:- Install Java (tomcat requires Java)
+        #yum install java-21-openjdk -y
+         Verify Java:-
+        #java -version
+
+Step 26:- open a browser and install tomcat zip {tomcat.apache.org}
+  #cd /opt/
+  #wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.44/bin/apache-tomcat-10.1.44.tar.gz
+  #ls
+  #tar -xvzf apache-tomcat-10.1.44.tar.gz 
+  #ls
+  mv apache-tomcat-10.1.44 tomcat 
+  #ls
+  #cd tomcat/
+  #groupadd --system tomcat
+  #useradd -d /usr/share/tomcat -r -s /bin/false -g tomcat tomcat
+  #chown -R tomcat:tomcat tomcat/
+  #cd bin/
+  #ls
+  #./startup.sh 
+  #firewall-cmd --permanent --add-port=8080/tcp
+  #firewall-cmd --reload
+  #firewall-cmd --list-all
+  #ss -antlpu | grep 8080
+#netstat  -antlpu | grep 8080
+#http://serverip:8080
+
+Step 27:- open tomcat page and click on manager app
+go to tomcat server and run below command
+  #find / -name context.xml
+  /opt/tomcat/webapps/host-manager/META-INF/context.xml
+  /opt/tomcat/webapps/manager/META-INF/context.xml
+
+  #vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+comment the line below
+ <!--   <Valve className="org.apache.catalina.valves.RemoteAddrValve"          {search for this line and comment this }
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+:wq!
+
+  #vim /opt/tomcat/webapps/manager/META-INF/context.xml
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"           {search for this line and comment this }
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+		 
+:wq!
+#cd bin
+#ls
+#./shutdown.sh 
+#./startup.sh
+
+Now refresh tomcat page
+and again go to tomcat server
+
+#cd ../conf/
+#ls
+#vim tomcat-users.xml
+paste the below line to last second line
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+<user username="deployer" password="deployer" roles="manager-script"/>
+<user username="tomcat" password="s3cret" roles="manager-gui"/>
+:wq!
+
+#cd ../bin/
+#./shutdown.sh
+./startup.sh
+Now refresh tomcat page
+username:admin
+password:admin
+
+go back to tomcat server
+#cd ../webapps
+#ls
+
+Step 28:- Now to integrate above tomcat to jenkins 
+go to existing jenkins dashboard
+go to manage jenkins
+and go credentials
+selet global and add credentials
+username:admin
+password:admin
+id:tomcat
+description:tomcat
+and create
+
+Step 29:- now create a new job
+name:-Build_and_deploy_job
+select maven project
+post build action:-Deploy war/ear to a container
+ git:- to paste github account FormFillApp repo url
+			branch:-main
+			Goals and options:-clean install
+war file format:-target/*.war
+Context path:- /opt/tomcat/webapps
+Tomcat 9.x Remote
+Tomcat URL:-http://192.168.159.137:8080/
+apply and save and run the job
+
+Step 30:- go back to tomcat server
+#cd /opt/tomcat/webapps
+#ls
+Then your FormFillApp directory are visible
+and just refresh your tomcat page then your actual page is visible
+
+*********This is complete setup of Jenkins CI& CD with Tomcat Server**********************
+
+GitHub Token:-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
+   
+
+
+
+
+
+
+
