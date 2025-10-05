@@ -1,0 +1,72 @@
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+rpm -qa | grep epel
+dnf --disablerepo="*" --enablerepo="epel" list available
+dnf --disablerepo="*" --enablerepo="epel" list available | grep htop
+dnf install htop
+yum repolist
+mount /dev/sr0 /opt
+df -h
+cd /etc/yum.repos.d/
+ll
+vim rhel8.repo
+[InstallMedia-BaseOS]
+name=Red Hat Enterprise Linux 8 - BaseOS
+metadata_expire=-1
+gpgcheck=1
+enabled=1
+baseurl=file:///opt/BaseOS/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+
+[InstallMedia-AppStream]
+name=Red Hat Enterprise Linux 8 - AppStream
+metadata_expire=-1
+gpgcheck=1
+enabled=1
+baseurl=file:///opt/AppStream/
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+#dnf clean all
+# dnf repolist
+# vim /etc/yum/pluginconf.d/subscription-manager.conf
+[main]
+enabled=0
+#yum install vsftpd
+#dnf install @perl @httpd wget unzip glibc automake glibc-common gettext autoconf php php-cli gcc gd gd-devel net-snmp openssl-devel unzip net-snmp postfix net-snmp-utils -y
+#dnf groupinstall "Development Tools"
+#systemctl enable --now httpd php-fpm
+#systemctl status httpd php-fpm
+#cd /usr/src
+# export VER="4.4.5"
+#curl -SL https://github.com/NagiosEnterprises/nagioscore/releases/download/nagios-$VER/nagios-$VER.tar.gz | tar -xzf -
+#cd nagios-$VER
+# ./configure
+#make all
+#make install-groups-users
+#usermod -a -G nagios apache
+#make install
+#make install-daemoninit
+#make install-commandmode
+#make install-config
+#make install-webconf
+#make install-exfoliation
+#make install-classicui
+#htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+New password:1234
+Re-type new password:1234
+#systemctl restart httpd
+#cd /usr/src
+#VER="2.2.1"
+#curl -SL https://github.com/nagios-plugins/nagios-plugins/releases/download/release-$VER/nagios-plugins-$VER.tar.gz | tar -xzf -
+#cd nagios-plugins-2.2.1
+#./configure --with-nagios-user=nagios --with-nagios-group=nagios
+#make && make install
+#/usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+#systemctl enable --now nagios
+#systemctl status nagios
+#firewall-cmd --permanent --add-service={http,https}
+#firewall-cmd --reload
+#ifconfig
+http://192.168.160.143/nagios/
+username:nagiosadmin
+password:1234

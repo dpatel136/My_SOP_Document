@@ -1,0 +1,90 @@
+**Docker/Podman Container:-
+**Container:-it is a light weight application that used to deployed any kind of service
+(or)applications,it stored service informations like service name,filesystem,network resources
+information & data information.
+______________________________________________________________________________________________
+**Docker:-it is a tool (or) command that managed the container,we can create,delete,modify
+          manage via docker tool.
+__________________________________________________________________________________________
+**Podman:-it is a tool (or)command that managed container via podman is not required to
+          run podman daemon
+Note:-Podman is a daemon less service
+____________________________________________________________________________________________
+
+**To Check Docker image:-
+#docker images
+#docker image ls
+___________________________________________________________________________
+**How to pull docker image:-
+#docker pull centos
+_____________________________________________________________________
+
+***How to Create a container (or) machine:-
+#docker run -it  -d  --name   vm1   centos
+
+where,
+it=interact terminal
+d=detached mode
+vm1=container name
+centos=image name
+_________________________________________________________________
+**To check running container:-
+#docker ps
+__________________________________________________
+**To check running & existed both container:-
+#docker ps -a
+_____________________________________________________________________
+**How to stop docker:-
+#docker stop image name
+_________________________________________________
+**How to start docker:-
+#docker start image name
+__________________________________________________________________
+**How to restart docker:-
+#docker restart image name
+___________________________________________________________________
+***How to create container:-
+#docker run -it -d --name vm1 centos
+____________________________________________________________
+**How to login in container:-
+#docker exec -it vm1 bash
+____________________________________________________________
+***How to create container in publically:-
+#docker run -it -d --name vm1 -p 80:80 centos
+where,
+80:80=host port:node port
+________________________________________________________
+***How to remove container:-
+#docker rm vm1
+_______________________________________________________________
+**How to remove running container:-
+#docker run vm1 -f
+_________________________________________________________________________
+***How to remove docker images:-
+#docker rmi centos
+(or)
+#docker rmi ubuntu
+____________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
