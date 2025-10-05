@@ -71,7 +71,8 @@ Step 12: Complete Jenkins Setup on Web UI
 
 
 
-GitHub Token:-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
+
 _________________________________________________________________________________________________________________
+
 
 
