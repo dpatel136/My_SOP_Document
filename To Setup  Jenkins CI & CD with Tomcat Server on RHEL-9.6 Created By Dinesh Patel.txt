@@ -294,8 +294,9 @@ and just refresh your tomcat page then your actual page is visible
 
 *********This is complete setup of Jenkins CI& CD with Tomcat Server**********************
 
-GitHub Token:-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
+
    
+
 
 
 
